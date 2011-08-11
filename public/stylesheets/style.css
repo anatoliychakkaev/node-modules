@@ -1,0 +1,130 @@
+/* Layout */
+
+#modules, #project {
+  margin-left: 290px;
+  float: left;
+  z-index: 1;
+}
+
+#sidebar {
+  width: 290px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: auto;
+  background: #f5f5f5;
+  z-index: 2;
+}
+
+li.project:hover .project-name {
+  color: #000;
+  cursor: pointer;
+}
+
+#project {
+  display: none;
+}
+
+/* Common */
+
+body {
+  font-family: helvetica, verdana, arial, sans-serif;
+}
+
+h1 {
+  padding: 10px 10px;
+  margin: 15px 0;
+  font-size: 2em;
+  color: #68a;
+}
+
+.digit-block {
+  margin-top: 5px;
+  font-size: 1.5em;
+  font-weight: 700;
+  height: 40px;
+  text-align: center;
+  float: right;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.digit-block.watchers {
+  width: 60px;
+}
+
+.digit-block.forks {
+  width: 40px;
+  margin-right: 15px;
+}
+
+.digit-block .hint {
+  font-size: 0.4em;
+  line-height: 10px;
+  color: #bbb;
+}
+
+.description {
+  float: left;
+  padding: 0 5px;
+  height: 50px;
+  position: relative;
+  width: 500px;
+  overflow: hidden;
+}
+.description .project-name {
+  font-weight: 700;
+  font-size: 1.75em;
+  color: #ccc;
+  white-space: nowrap;
+}
+.description .hint {
+  font-size: 0.85em;
+  line-height: 20px;
+  white-space: normal;
+}
+
+li.project {
+  white-space: nowrap;
+  height: 50px;
+  clear: both;
+}
+
+li.project.even {
+  background: #F7F7F7;
+}
+
+ul {
+  clear: both;
+}
+
+#sidebar li {
+  line-height: 1.5em;
+  font-weight: 700;
+  color: #789;
+}
+
+
+#sidebar li a, #sidebar li a:visited {
+  color: #68a;
+  text-decoration: none;
+}
+
+#sidebar > ul {
+  list-style-type: circle;
+}
+
+#sidebar > ul > li > ul {
+  list-style-type: disc;
+}
+
+#sidebar > ul > li > ul > li > ul{
+  list-style-type: square;
+}
+
+ul.index li {
+  margin-left: 20px;
+}
+

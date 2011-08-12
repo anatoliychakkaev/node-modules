@@ -31,16 +31,16 @@ function dataLoaded(data) {
             $(this.stats).each(function (index) {
                 html += '<li class="project ' + (index % 2 ? 'even' : 'odd') + '" data-id="' + this.project.id + '">' +
                 '<div class="description">' +
-                '<div class="project-name">' + this.project.url.replace('https://github.com/', '').replace('/', ' / ') + '</div>' +
-                '<div class="hint">' + this.project.description + '</div>' +
+                    '<div class="project-name">' + this.project.url.replace('https://github.com/', '').replace('/', ' / ') + '</div>' +
+                    '<div class="hint">' + this.project.description + '</div>' +
                 '</div>' +
                 '<div class="digit-block watchers">' +
-                '<div class="number">' + f(this.watchers) + '</div>' +
-                '<div class="hint">watchers</div> ' +
+                    '<div class="number">' + f(this.watchers) + '</div>' +
+                    '<div class="hint">watchers</div> ' +
                 '</div>' +
                 '<div class="digit-block forks">' +
-                '<div class="number">' + f(this.forks) + '</div>' +
-                '<div class="hint">forks</div>' +
+                    '<div class="number">' + f(this.forks) + '</div>' +
+                    '<div class="hint">forks</div>' +
                 '</div>' +
                 '</li>';
             });
@@ -56,10 +56,12 @@ function f(x) {
 }
 
 var scrollTop;
+var projectListDisplayed = true;
 
 function projectDetails(prj) {
     $modules = $('#modules');
     $project = $('#project');
+    projectListDisplayed = false;
 
     var width = $modules.width();
     $modules.css('width', width);
@@ -69,21 +71,28 @@ function projectDetails(prj) {
         scrollTop = document.body.scrollTop;
         document.body.scrollTop = 0;
         $('body').css('overflow', 'hidden');
-        $project.show().html($(prj).attr('data-id'));
+        $project.show();
+        var id = $(prj).parents('.project').attr('data-id');
+        $project.find('.project-name').text(id.replace('/', ' / '));
+        $project.find('.wikistyle').html('');
+        $.getJSON('/project/info?id=' + id, function (data) {
+            $project.find('.wikistyle').html(data.html);
+        });
     });
 }
 
 function projectList() {
+    projectListDisplayed = true;
     $modules = $('#modules');
     $project = $('#project');
     $('body').css('overflow', 'auto');
-    document.body.scrollTop = scrollTop ;
+    document.body.scrollTop = scrollTop;
     $('#modules').animate({
         'margin-left': $('#sidebar').width()
     }, function () {
         $modules.css('width', 'auto');
-        $modules.show();
         $project.hide();
+        $modules.show();
     });
 }
 
@@ -94,7 +103,14 @@ $(function () {
             return true;
         }
         projectDetails(this);
-        setTimeout(projectList, 1600);
+        // setTimeout(projectList, 1600);
+    });
+
+    $('#sidebar ul.index li a').live('click', function () {
+        if (!projectListDisplayed) {
+            projectList();
+        }
+        return true;
     });
 
 });

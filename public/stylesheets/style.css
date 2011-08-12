@@ -25,6 +25,13 @@ li.project:hover .project-name {
 
 #project {
   display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  padding: 10px;
 }
 
 /* Common */
@@ -38,6 +45,10 @@ h1 {
   margin: 15px 0;
   font-size: 2em;
   color: #68a;
+}
+
+h2, h3 {
+  margin: 1em 0;
 }
 
 .digit-block {
@@ -128,3 +139,63 @@ ul.index li {
   margin-left: 20px;
 }
 
+/* README styling */
+
+pre, code {
+  12px 'Bitstream Vera Sans Mono','Courier',monospace;
+}
+
+.wikistyle {
+  padding: 10px;
+  background: #f8f8f8;
+  border: 1px solid #eee;
+}
+
+.wikistyle p {
+  line-height: 1.5em;
+}
+
+.wikistyle h1 {
+  font-size: 170%!important;
+  border-top: 4px solid #AAA!important;
+  padding-top: .5em!important;
+  margin-top: 1.5em!important;
+  color: black;
+}
+
+.wikistyle h2 {
+  font-size: 150%!important;
+  margin-top: 1.5em!important;
+  border-top: 4px solid #E0E0E0!important;
+  padding-top: .5em!important;
+  color: black;
+}
+
+.wikistyle code {
+  font-size: 12px;
+  background-color: ghostWhite;
+  color: #444;
+  padding: 0 .2em;
+  border: 1px solid #DEDEDE;
+}
+
+.wikistyle pre {
+  margin: 1em 0;
+  font-size: 12px;
+  background-color: #EEE;
+  border: 1px solid #DDD;
+  padding: 5px;
+  color: #444;
+  overflow: auto;
+  -webkit-box-shadow: rgba(0,0,0,0.07) 0 1px 2px inset;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.wikistyle pre code {
+  padding: 0!important;
+  font-size: 12px!important;
+  background-color: #EEE!important;
+  border: none!important;
+}

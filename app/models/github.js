@@ -124,7 +124,9 @@ Github.prototype.loadProjects = function loadProjects(group, done) {
 };
 
 Github.prototype.store = function store(group) {
+    // sort stats by: forks DESC, watchers DESC
     group.stats = group.stats.sort(function (a, b) { return b.forks - a.forks || b.watchers - a.watchers;});
+    // add group to resulting array
     this.result.push(group);
 };
 
@@ -143,62 +145,60 @@ Github.updateFrontend = function () {
 
     var dataDir = app.root + '/data/github.com';
     var files = [];
-    var last, prev, yesterday, today;
+    var yesterday, today;
+
+    // read datadir
     fs.readdirSync(dataDir).forEach(function (file) {
         var m = file.match(/(\d+)-(\d+)-(\d+)\.json$/);
         if (m) {
-            prev = last;
-            last = file;
             files.push(file);
         }
     });
 
-    if (prev !== last) {
-        yesterday = load(prev);
+    today = load(files.pop());
+
+    // read timeline
+    var timeline;
+    if (path.existsSync(dataDir + '/timeline.json')) {
+        timeline = JSON.parse(fs.readFileSync(dataDir + '/timeline.json'));
+    } else {
+        timeline = {};
+        files.forEach(function (file) {
+            var batch = load(file);
+            addToIndex(batch, timeline);
+        });
     }
-    today = load(last);
+
+    addToIndex(today, timeline);
 
     function load(file) {
         console.log('loading', file);
         var m = file.match(/(\d+)-(\d+)-(\d+)\.json$/);
-        return {
+        var batch = {
             y: parseInt(m[1], 10),
             m: parseInt(m[2], 10),
             d: parseInt(m[3], 10),
             data: JSON.parse(fs.readFileSync(dataDir + '/' + file))
         };
+        batch.delta = Math.round((new Date(batch.y, batch.m - 1, batch.d, 12) - new Date(2011, 7, 2)) / 86400000);
+        return batch;
     }
 
-    var yesterdayIndex = buildIndex(yesterday || today);
-
-    addStats(today, yesterdayIndex, 'yesterday');
-
-    function buildIndex(batch) {
-        var index = {};
+    function addToIndex(batch, index) {
         batch.data.forEach(function (group) {
             group.stats.forEach(function (e) {
-                if (!e.project.id) e.project.id = e.project.url;
-                index[e.project.id] = [e.watchers, e.forks];
-            });
-        });
-        return index;
-    }
-
-    function addStats(batch, index, name) {
-        batch.data.forEach(function (group) {
-            group.stats.forEach(function (e) {
-                var entry = index[e.project.id || e.project.url];
-                if (entry) {
-                    e[name] = {
-                        watchers: entry[0],
-                        forks: entry[1]
-                    };
+                if (!e.project.id) e.project.id = e.project.url.replace('https://github.com/', '');
+                if (!index[e.project.id]) {
+                    index[e.project.id] = {w: {}, f: {}};
                 }
+                index[e.project.id].w[batch.delta] = e.watchers;
+                index[e.project.id].f[batch.delta] = e.forks;
             });
         });
     }
 
     fs.writeFileSync(app.root + '/public/modules.js', 'dataLoaded(' + JSON.stringify(today) + ');');
+    fs.writeFileSync(dataDir + '/timeline.json', JSON.stringify(timeline));
 };
 
 Github.runDailyUpdate = function () {

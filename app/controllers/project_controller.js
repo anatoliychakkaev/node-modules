@@ -9,7 +9,9 @@ action("info", function () {
     bro.get('/' + id, function ($) {
         send({
             id: id,
-            html: $('#readme .wikistyle').html()
+            html: $('#readme .wikistyle').html(),
+            stats: app.timeline[id]
         });
+        console.log('stats: ', app.timeline[id]);
     });
 });

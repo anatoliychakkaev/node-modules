@@ -171,6 +171,8 @@ Github.updateFrontend = function () {
 
     addToIndex(today, timeline);
 
+    app.timeline = timeline;
+
     function load(file) {
         console.log('loading', file);
         var m = file.match(/(\d+)-(\d+)-(\d+)\.json$/);

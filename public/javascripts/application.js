@@ -76,9 +76,24 @@ function projectDetails(prj) {
         $project.find('.project-name').text(id.replace('/', ' / '));
         $project.find('.wikistyle').html('');
         $.getJSON('/project/info?id=' + id, function (data) {
+            var series = [extract(data.stats.f), extract(data.stats.w)];
+            $.plot($project.find('.project-stats'), series, {});
+            // $project.find('.project-stats').text(JSON.stringify(data.stats));
+
             $project.find('.wikistyle').html(data.html);
         });
     });
+}
+
+function extract(data) {
+    var points = [];
+    var prev;
+    for (var i in data) {
+        if (!prev) prev = data[i];
+        points.push([i, data[i] - prev]);
+        prev = data[i];
+    }
+    return points;
 }
 
 function projectList() {
@@ -112,5 +127,9 @@ $(function () {
         }
         return true;
     });
+
+    setTimeout(function () {
+        projectDetails($('li.project .project-name')[0]);
+    }, 500);
 
 });

@@ -130,12 +130,6 @@ $(function () {
 
     setTimeout(function () {
         // projectDetails($('li.project .project-name')[0]);
-        :q
-
-
-
-
-:wq
     }, 500);
 
 });

@@ -32,6 +32,7 @@ li.project:hover .project-name {
   right: 0;
   overflow: auto;
   padding: 10px;
+  padding-top: 60px;
 }
 
 /* Common */
@@ -55,7 +56,6 @@ h2, h3 {
 
 #modules h1 {
   font-size: 2em;
-  background: #999;
   color: white;
   margin: 0;
   top: 0;
@@ -63,6 +63,11 @@ h2, h3 {
   right: 0;
   z-index: 3;
   position: relative;
+  background: #999;
+  background: -webkit-gradient(linear,0% 0,0% 100%,from(#aaa),to(#888));
+  background: -moz-linear-gradient(270deg,#FCFCFC,#ECECEC);
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  border-bottom: 1px solid #666;
 }
 
 
@@ -101,15 +106,19 @@ h2, h3 {
   overflow: hidden;
 }
 .description .project-name {
-  font-weight: 700;
+  font-weight: 300;
   font-size: 1.75em;
-  color: #ccc;
+  color: #000;
   white-space: nowrap;
 }
 .description .hint {
   font-size: 0.85em;
   line-height: 20px;
   white-space: normal;
+  color: #888;
+}
+.description .hint a, .description .hint a:visited {
+  color: #369;
 }
 
 li.project {
@@ -152,6 +161,19 @@ ul {
 
 ul.index li {
   margin-left: 20px;
+}
+
+/* project details */
+
+#project > h1 {
+  background: #479;
+  color: #fff;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 290px;
+  right: 0px;
+  opacity: 0.5;
 }
 
 /* README styling */

@@ -91,8 +91,25 @@ function viewProjectDetails(id) {
         $project.find('.project-name').text(id.replace('/', ' / '));
         $project.find('.wikistyle').html('');
         $.getJSON('/project/info?id=' + id, function (data) {
-            var series = [extract(data.stats.f), extract(data.stats.w)];
-            $.plot($project.find('.project-stats'), series, {});
+            var series = [extract(data.stats.w)];
+            $.plot($project.find('.project-stats'), series, {
+                series: {
+                    lines: { show: true, fill: true },
+                    points: {
+                        show: true,
+                        fill: true
+                    },
+                    bars: {
+                        show: false
+                    }
+                },
+                xaxis: {
+                    tickSize: 1
+                },
+                yaxis: {
+                    // tickSize: 1
+                }
+            });
             $project.find('.wikistyle').html(data.html);
         });
     });
@@ -124,7 +141,7 @@ function extract(data) {
     var prev;
     for (var i in data) {
         if (!prev) prev = data[i];
-        points.push([i, data[i] - prev]);
+        points.push([i, data[i]]);
         prev = data[i];
     }
     return points;
@@ -211,9 +228,9 @@ $(function () {
             $header.next('ul').css('margin-top', headerHeight);
             floatHeader = $header;
         }
-        if (bottomBound - st < headerHeight) {
+        // if (bottomBound - st < headerHeight) {
             // $header.css('top', -headerHeight + bottomBound - st);
-        }
+        // }
     }
 
 });

@@ -15,7 +15,7 @@
   height: 100%;
   overflow: auto;
   background: #f5f5f5;
-  z-index: 2;
+  z-index: 4;
 }
 
 li.project:hover .project-name {
@@ -54,7 +54,7 @@ h2, h3 {
 
 /* Modules list */
 
-#modules h1 {
+#modules h1, #project > h1 {
   font-size: 2em;
   color: white;
   margin: 0;
@@ -70,11 +70,10 @@ h2, h3 {
   border-bottom: 1px solid #666;
 }
 
-
 .digit-block {
   margin-top: 5px;
   font-size: 1.5em;
-  font-weight: 700;
+  font-weight: 300;
   height: 40px;
   text-align: center;
   float: right;
@@ -95,6 +94,7 @@ h2, h3 {
   font-size: 0.4em;
   line-height: 10px;
   color: #bbb;
+  font-weight: 700;
 }
 
 .description {
@@ -166,14 +166,21 @@ ul.index li {
 /* project details */
 
 #project > h1 {
-  background: #479;
-  color: #fff;
   margin: 0;
   position: fixed;
   top: 0;
   left: 290px;
   right: 0px;
   opacity: 0.5;
+}
+
+#project > h1 a.twitter-share-button {
+  display: none;
+}
+#project > h1 iframe.twitter-share-button {
+  margin-top: 6px;
+  float: right;
+  opacity: 1;
 }
 
 /* README styling */

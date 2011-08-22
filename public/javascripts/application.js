@@ -88,7 +88,7 @@ function viewProjectDetails(id) {
         document.body.scrollTop = 0;
         $('body').css('overflow', 'hidden');
         $project.show();
-        $project.find('.project-name').text(id.replace('/', ' / '));
+        $project.find('.project-name').html(id.replace('/', ' / ') + '<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="1602">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>');
         $project.find('.wikistyle').html('');
         $.getJSON('/project/info?id=' + id, function (data) {
             var series = [extract(data.stats.w)];

@@ -39,7 +39,7 @@ function renderList(data) {
         var id = this.name.join('-').replace(/[^a-z]+/gi, '-').toLowerCase();
         side += '<li><a href="#' + id + '">' + this.name[this.name.length - 1] + '</a></li>';
         html += '<a name="' + id + '"></a><h1>' + this.name.join(' > ') + '</h1>';
-        html += '<ul>';
+        html += '<ul><li class="spacer"></li>';
         $(this.stats).each(function (index) {
             html += '<li class="project ' + (index % 2 ? 'even' : 'odd') + '" data-id="' + this.project.id + '">' +
             '<div class="description">' +
@@ -56,7 +56,7 @@ function renderList(data) {
             '</div>' +
             '</li>';
         });
-        html += '</ul>';
+        html += '<li class="spacer"></li></ul>';
     });
     $('#modules').html(html);
     $('#sidebar').html(side + '</ul>');
@@ -123,10 +123,10 @@ function viewProjectList() {
     $('body').css('overflow', 'auto');
     document.body.scrollTop = scrollTop;
     $('#modules').animate({
-        'margin-left': $('#sidebar').width()
+        'margin-left': 0
     },
     function animationDone() {
-        $modules.css('width', 'auto');
+        $modules.css('width', '100%');
         $project.hide();
         $modules.show();
         if (floatHeader) {
@@ -224,8 +224,7 @@ $(function () {
             $header.css({
                 'position': 'fixed',
                 'opacity': .7,
-                'z-index': 2,
-                'left': 290
+                'z-index': 2
             });
             $header.next('ul').css('margin-top', headerHeight);
             floatHeader = $header;

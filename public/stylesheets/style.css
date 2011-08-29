@@ -1,9 +1,9 @@
 /* Layout */
 
 #modules, #project {
-  margin-left: 290px;
   float: left;
   z-index: 1;
+  width: 100%;
 }
 
 #sidebar {
@@ -58,6 +58,7 @@ h2, h3 {
   font-size: 2em;
   color: white;
   margin: 0;
+  margin-left: 290px;
   top: 0;
   left: 0;
   right: 0;
@@ -68,6 +69,14 @@ h2, h3 {
   background: -moz-linear-gradient(270deg,#FCFCFC,#ECECEC);
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2);
   border-bottom: 1px solid #666;
+}
+
+#modules > ul, #project > * {
+  margin-left: 290px;
+}
+
+li.spacer {
+  height: 30px;
 }
 
 .digit-block {
@@ -123,7 +132,8 @@ h2, h3 {
 
 li.project {
   white-space: nowrap;
-  height: 50px;
+  padding-top: 5px;
+  height: 55px;
   clear: both;
 }
 
@@ -180,7 +190,11 @@ ul.index li {
 #project > h1 iframe.twitter-share-button {
   margin-top: 6px;
   float: right;
-  opacity: 1;
+}
+
+#project > h2.section {
+  font-size: 1.3em;
+  font-weight: 100;
 }
 
 /* README styling */

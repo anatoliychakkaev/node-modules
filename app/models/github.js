@@ -148,7 +148,7 @@ Github.updateFrontend = function () {
     var yesterday, today;
 
     // read datadir
-    fs.readdirSync(dataDir).forEach(function (file) {
+    fs.readdirSync(dataDir).sort().forEach(function (file) {
         var m = file.match(/(\d+)-(\d+)-(\d+)\.json$/);
         if (m) {
             files.push(file);
@@ -158,9 +158,9 @@ Github.updateFrontend = function () {
     today = load(files.pop());
 
     // read timeline
-    var timeline;
-    if (path.existsSync(dataDir + '/timeline.json')) {
-        timeline = JSON.parse(fs.readFileSync(dataDir + '/timeline.json'));
+    var timeline, timelineFile = dataDir + '/timeline.json';
+    if (path.existsSync(timelineFile)) {
+        timeline = JSON.parse(fs.readFileSync(timelineFile));
     } else {
         timeline = {};
         files.forEach(function (file) {
@@ -200,7 +200,7 @@ Github.updateFrontend = function () {
     }
 
     fs.writeFileSync(app.root + '/public/modules.js', 'dataLoaded(' + JSON.stringify(today) + ');');
-    fs.writeFileSync(dataDir + '/timeline.json', JSON.stringify(timeline));
+    fs.writeFileSync(timelineFile, JSON.stringify(timeline));
 };
 
 Github.runDailyUpdate = function () {

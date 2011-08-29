@@ -12,6 +12,6 @@ action("info", function () {
             html: $('#readme .wikistyle').html(),
             stats: app.timeline[id]
         });
-        console.log('stats: ', app.timeline[id]);
+        // console.log('stats: ', app.timeline[id]);
     });
 });

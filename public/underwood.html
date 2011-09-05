@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node Modules</title>
+    <meta name="viewport" content="width=500, initial-scale=0.5">
+    <link media="screen" rel="stylesheet" type="text/css" href="/stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <style>
+      .story {
+        margin-bottom: 20px;
+        line-height: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+  </body>
+  <script src="/javascripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script>
+    $(function () {
+      $.get('/underwood.txt', function (text) {
+        text = text.replace(/\r?\n\r?\n/g, '</div><div class="story">').replace(/\r?\n\s+/g, '<br/>');
+        $('body').html('<div>' + text + '</div>');
+      });
+    });
+  </script>
+
+</html>
